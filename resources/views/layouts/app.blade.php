@@ -28,7 +28,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main class="pt-8">
+            <main class="pt-8 pb-8">
                 {{ $slot }}
             </main>
         </div>

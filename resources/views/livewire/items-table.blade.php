@@ -1,11 +1,6 @@
 <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
     <!-- Search bar -->
     <div class="flex gap-2 items-center p-4 bg-[#faa202]">
-        <a href="{{ route('items.create') }}"
-           class="px-8 py-3 rounded-full bg-gradient-to-r from-[#4ae6d4] to-[#054162] text-white font-semibold text-sm hover:shadow-md transition duration-200 block lg:hidden">
-            +
-        </a>
-
         <div class="w-full">
             <input wire:model.live.debounce.500ms="search" type="text"
                    class="bg-gray-50 text-gray-900 text-sm rounded-full border-none focus:ring-0 focus:border-none block w-full p-3 placeholder-gray-400"
@@ -25,24 +20,20 @@
         <tbody>
         @foreach($items as $item)
             <tr class="hover:bg-gray-50 transition duration-150 cursor-pointer" >
-                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 font-medium text-gray-900">
+                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 font-medium text-gray-900">
                     {{ $item->name }}
                     @if($item->pivot->quantity > 1)
                         ({{ $item->pivot->quantity }}x)
                     @endif
                 </td>
-                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->type->name }}</td>
-                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->rarity->name }}</td>
+                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->type->name }}</td>
+                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->rarity->name }}</td>
                 <td class="px-4 py-3 flex items-center justify-end gap-2">
                     <button type="button"
                             onclick="sendCheck({{ $item->id }}, '{{ $item->name }}')"
                             class="px-4 py-2 rounded-full bg-red-500 text-white font-semibold text-sm hover:bg-red-600 hover:shadow-md transition duration-200">
                         Delete
                     </button>
-                    <a href="{{ route('items.edit', $item) }}"
-                       class="px-4 py-2 rounded-full bg-gradient-to-r from-[#4ae6d4] to-[#054162] text-white font-semibold text-sm hover:shadow-md transition duration-200">
-                        Edit
-                    </a>
                 </td>
             </tr>
         @endforeach
@@ -86,7 +77,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('items.destroy', '') }}/" + id,
+                    url: "{{ route('user.items.destroy', '') }}/" + id,
                     data: {
                         _method: 'DELETE',
                         _token: "{{ csrf_token() }}"
