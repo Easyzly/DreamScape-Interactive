@@ -20,21 +20,12 @@
         <tbody>
         @foreach($items as $item)
             <tr class="hover:bg-gray-50 transition duration-150 cursor-pointer" >
-                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 font-medium text-gray-900">
-                    {{ $item->name }}
-                    @if($item->pivot->quantity > 1)
-                        ({{ $item->pivot->quantity }}x)
-                    @endif
+                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 font-medium text-gray-900">
+                    {{ $item->name }} ({{ $item->total_quantity > 0 ? $item->total_quantity . 'x' : '0x' }})
                 </td>
-                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->type->name }}</td>
-                <td onclick="window.location='{{ route('user.items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->rarity->name }}</td>
-                <td class="px-4 py-3 flex items-center justify-end gap-2">
-                    <button type="button"
-                            onclick="sendCheck({{ $item->id }}, '{{ $item->name }}')"
-                            class="px-4 py-2 rounded-full bg-red-500 text-white font-semibold text-sm hover:bg-red-600 hover:shadow-md transition duration-200">
-                        Delete
-                    </button>
-                </td>
+                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->type->name }}</td>
+                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->rarity->name }}</td>
+                <td class="px-4 py-3 flex items-center justify-end gap-2"></td>
             </tr>
         @endforeach
         </tbody>
@@ -58,48 +49,3 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    function sendCheck(id, name) {
-        Swal.fire({
-            title: "Are you sure you want to delete the item " + name + "?",
-            text: "This cannot be undone!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('user.items.destroy', '') }}/" + id,
-                    data: {
-                        _method: 'DELETE',
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function (data) {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Item has been deleted",
-                            icon: "success"
-                        }).then(() => {
-                            location.reload();
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Item could not be deleted",
-                            icon: "error"
-                        });
-                    }
-                });
-            }
-        });
-    }
-</script>

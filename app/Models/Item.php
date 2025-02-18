@@ -30,7 +30,7 @@ class Item extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function user(): BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_item', 'item_id', 'user_id')->withPivot('quantity');
     }

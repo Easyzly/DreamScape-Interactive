@@ -2,11 +2,10 @@
 
 namespace App\Livewire;
 
-use App\Models\Item;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ItemsTable extends Component
+class UserItemsTable extends Component
 {
     use WithPagination;
 
@@ -15,17 +14,17 @@ class ItemsTable extends Component
 
     public function render()
     {
-        $items = Item::query()
-            ->with('rarity', 'type', 'users')
-            ->withSum('users as total_quantity', 'user_item.quantity');
+        $user = auth()->user();
+        $items = $user->items();
 
         if ($this->search) {
             $items->where('name', 'like', '%' . $this->search . '%');
         }
 
-        $items->orderBy('total_quantity', 'desc');
+        $items->with('rarity', 'type');
+        $items->orderBy('created_at', 'desc');
         $items = $items->paginate($this->perPage);
 
-        return view('livewire.items-table', compact('items'));
+        return view('livewire.user-items-table', compact('items'));
     }
 }
