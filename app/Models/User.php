@@ -47,6 +47,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'user_item', 'user_id', 'item_id')->withPivot('quantity');
+    }
+
     public static function boot()
     {
         parent::boot();
