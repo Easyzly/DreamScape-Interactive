@@ -8,25 +8,31 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Trade extends Model
 {
     protected $fillable = [
-        'sender_id',
-        'receiver_id',
-        'item_id',
+        'receiving_user_id',
+        'sending_user_id',
+        'receiving_item_id',
+        'sending_item_id',
         'quantity',
-        'accepted',
+        'status',
     ];
 
-    public function sender(): BelongsTo
+    public function receivingUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'sender_id');
+        return $this->belongsTo(User::class, 'receiving_user_id');
     }
 
-    public function receiver(): BelongsTo
+    public function sendingUser(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'receiver_id');
+        return $this->belongsTo(User::class, 'sending_user_id');
     }
 
-    public function item(): BelongsTo
+    public function receivingItem(): BelongsTo
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Item::class, 'receiving_item_id');
+    }
+
+    public function sendingItem(): BelongsTo
+    {
+        return $this->belongsTo(Item::class, 'sending_item_id');
     }
 }

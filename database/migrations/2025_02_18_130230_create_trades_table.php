@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->unsignedBigInteger('receiving_user_id');
+            $table->unsignedBigInteger('sending_user_id');
+            $table->unsignedBigInteger('receiving_item_id');
+            $table->unsignedBigInteger('sending_item_id');
+            $table->foreign('receiving_user_id')->references('id')->on('users');
+            $table->foreign('sending_user_id')->references('id')->on('users');
+            $table->foreign('receiving_item_id')->references('id')->on('items');
+            $table->foreign('sending_item_id')->references('id')->on('items');
             $table->integer('quantity');
-            $table->boolean('accepted')->default(false);
+            $table->enum('accepted', ['pending', 'accepted', 'declined'])->default('pending');
             $table->timestamps();
         });
     }
