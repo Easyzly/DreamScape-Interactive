@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Item;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,5 +23,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'jamievangulik2006@gmail.com',
         ]);
         $admin->assignRole('Beheerder');
+
+        $randomItems = Item::inRandomOrder()->limit(10)->get();
+        $randomItems->each(function ($item) use ($admin) {
+            $admin->items()->attach($item, ['quantity' => rand(1, 5)]);
+        });
     }
 }
