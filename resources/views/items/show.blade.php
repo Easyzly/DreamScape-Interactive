@@ -21,6 +21,18 @@
                     <p class="text-gray-700 mb-6"><strong>Speed:</strong> {{ $item->speed }}</p>
                     <p class="text-gray-700 mb-6"><strong>Durability:</strong> {{ $item->durability }}</p>
                     <p class="text-gray-700 mb-6"><strong>Magic:</strong> {{ $item->magic }}</p>
+
+                    <!-- Users List -->
+                    <div class="container flex items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold mb-4">Users Owning This Item</h3>
+                    </div>
+                    <ul class="list-disc pl-5">
+                        @foreach($item->users as $user)
+                            <li class="text-gray-700 mb-2">
+                                <strong>{{ $user->name }}</strong> - Quantity: {{ $user->pivot->quantity }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
