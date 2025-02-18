@@ -12,6 +12,7 @@
         <thead class="bg-[#faa202] text-white uppercase text-xs tracking-wider">
         <tr>
             <th scope="col" class="px-4 py-3 font-semibold">Name</th>
+            <th scope="col" class="px-4 py-3 font-semibold hidden sm:table-cell">Power/Speed/Durability/Magic</th>
             <th scope="col" class="px-4 py-3 font-semibold hidden sm:table-cell">Type</th>
             <th scope="col" class="px-4 py-3 font-semibold hidden sm:table-cell">Rarity</th>
             <th scope="col" class="px-4 py-3"><span class="sr-only">Actions</span></th>
@@ -22,6 +23,9 @@
             <tr class="hover:bg-gray-50 transition duration-150 cursor-pointer" >
                 <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 font-medium text-gray-900">
                     {{ $item->name }} ({{ $item->total_quantity > 0 ? $item->total_quantity . 'x' : '0x' }})
+                </td>
+                <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">
+                    {{ $item->power }}/{{ $item->speed }}/{{ $item->durability }}/{{ $item->magic }}
                 </td>
                 <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->type->name }}</td>
                 <td onclick="window.location='{{ route('items.show', $item) }}'" class="px-4 py-3 text-gray-700 hidden sm:table-cell">{{ $item->rarity->name }}</td>
