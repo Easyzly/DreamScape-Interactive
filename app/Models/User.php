@@ -46,4 +46,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            $user->assignRole('Gebruiker');
+        });
+    }
 }
