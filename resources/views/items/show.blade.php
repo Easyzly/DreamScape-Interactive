@@ -28,9 +28,11 @@
                     </div>
                     <ul class="list-disc pl-5">
                         @foreach($item->users as $user)
-                            <li class="text-gray-700 mb-2">
-                                <strong>{{ $user->name }}</strong> - Quantity: {{ $user->pivot->quantity }}
-                            </li>
+                          <li class="text-gray-700 mb-2">
+                              <a href="{{ route('trades.create', ['item' => $item->id, 'user' => $user->id]) }}" class="text-blue-500 hover:underline">
+                                  <strong>{{ $user->name }}</strong> - Quantity: {{ $user->pivot->quantity }}
+                              </a>
+                          </li>
                         @endforeach
                     </ul>
                 </div>

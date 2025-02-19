@@ -28,22 +28,34 @@
                 <td class="px-4 py-3 text-gray-700">{{ $trade->receivingItem->name }}, {{$trade->receiving_quantity}}x</td>
                 <td class="px-4 py-3 text-gray-700">{{ $trade->accepted }}</td>
                 <td class="px-4 py-3 flex items-center justify-end gap-2">
-                    @if(auth()->id() == $trade->receivingUser->id && $trade->accepted == 'pending')
-                        <form action="{{ route('trades.accept', $trade) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#4ae6d4] to-[#054162] text-white font-semibold text-sm hover:shadow-md transition duration-200">
-                                Accept
-                            </button>
-                        </form>
+                    @if($trade->accepted == 'pending')
+                        @if(auth()->id() == $trade->receivingUser->id)
+                            <form action="{{ route('trades.accept', $trade) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#4ae6d4] to-[#054162] text-white font-semibold text-sm hover:shadow-md transition duration-200">
+                                    Accept
+                                </button>
+                            </form>
 
-                        <form action="{{ route('trades.deny', $trade) }}" method="POST">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#e64a4a] to-[#610505] text-white font-semibold text-sm hover:shadow-md transition duration-200">
-                                Deny
-                            </button>
-                        </form>
+                            <form action="{{ route('trades.deny', $trade) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#e64a4a] to-[#610505] text-white font-semibold text-sm hover:shadow-md transition duration-200">
+                                    Deny
+                                </button>
+                            </form>
+                        @endif
+
+                        @if(auth()->id() != $trade->receivingUser->id)
+                            <form action="{{ route('trades.deny', $trade) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#e64a4a] to-[#610505] text-white font-semibold text-sm hover:shadow-md transition duration-200">
+                                    Cancel
+                                </button>
+                            </form>
+                        @endif
                     @endif
                 </td>
             </tr>

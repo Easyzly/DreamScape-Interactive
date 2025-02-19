@@ -130,9 +130,10 @@ class TradeController extends Controller
 
     public function deny(Trade $trade)
     {
-        $this->authorize('update', $trade);
+        $receivingUser = $trade->receivingUser;
+        $sendingUser = $trade->sendingUser;
 
-        if ($trade->receiver_id !== Auth::id()) {
+        if ($receivingUser->id !== Auth::id() and $sendingUser->id !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
