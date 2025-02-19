@@ -28,5 +28,11 @@ class DatabaseSeeder extends Seeder
         $randomItems->each(function ($item) use ($admin) {
             $admin->items()->attach($item, ['quantity' => rand(1, 5)]);
         });
+
+        $randomUser = User::factory()->create();
+        $randomItems = Item::inRandomOrder()->limit(10)->get();
+        $randomItems->each(function ($item) use ($randomUser) {
+            $randomUser->items()->attach($item, ['quantity' => rand(1, 5)]);
+        });
     }
 }
