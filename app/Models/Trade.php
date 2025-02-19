@@ -12,8 +12,9 @@ class Trade extends Model
         'sending_user_id',
         'receiving_item_id',
         'sending_item_id',
-        'quantity',
-        'status',
+        'receiving_quantity',
+        'sending_quantity',
+        'accepted',
     ];
 
     public function receivingUser(): BelongsTo

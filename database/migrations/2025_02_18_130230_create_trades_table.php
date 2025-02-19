@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreign('sending_user_id')->references('id')->on('users');
             $table->foreign('receiving_item_id')->references('id')->on('items');
             $table->foreign('sending_item_id')->references('id')->on('items');
-            $table->integer('quantity');
+            $table->integer('receiving_quantity');
+            $table->integer('sending_quantity');
             $table->enum('accepted', ['pending', 'accepted', 'declined'])->default('pending');
             $table->timestamps();
         });

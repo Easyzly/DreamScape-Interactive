@@ -18,25 +18,29 @@ class TradesTable extends Component
         $trades = Trade::query();
 
         $trades->where(function ($query) {
-            $query->where('sender_id', auth()->id())
-                ->orWhere('receiver_id', auth()->id());
+            $query->where('sending_user_id', auth()->id())
+                ->orWhere('receiving_user_id', auth()->id());
         });
 
         if ($this->search) {
-            $trades->whereHas('sender', function ($query) {
+            $trades->whereHas('sendingUser', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
 
-            $trades->orWhereHas('receiver', function ($query) {
+            $trades->orWhereHas('receivingUser', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
 
-            $trades->orWhereHas('item', function ($query) {
+            $trades->orWhereHas('sendingItem', function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            });
+
+            $trades->orWhereHas('receivingItem', function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
         }
 
-        $trades->with('sender', 'receiver', 'item');
+        $trades->with('sendingUser', 'receivingUser', 'sendingItem', 'receivingItem');
         $trades = $trades->paginate($this->perPage);
 
         return view('livewire.trades-table', compact('trades'));

@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/trades', [\App\Http\Controllers\TradeController::class, 'index'])->name('trades.index');
     Route::get('/trades/{trade}', [\App\Http\Controllers\TradeController::class, 'show'])->name('trades.show');
+    Route::get('/trades/create/{item}/{user}', [\App\Http\Controllers\TradeController::class, 'create'])->name('trades.create');
     Route::post('/trades', [\App\Http\Controllers\TradeController::class, 'store'])->name('trades.store');
     Route::delete('/trades/{trade}', [\App\Http\Controllers\TradeController::class, 'destroy'])->name('trades.destroy');
     Route::patch('/trades/{trade}/accept', [\App\Http\Controllers\TradeController::class, 'accept'])->name('trades.accept');
