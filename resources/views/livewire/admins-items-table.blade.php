@@ -32,11 +32,11 @@
                 <td class="px-4 py-3 flex items-center justify-end gap-2">
                     <button onclick="sendCheck({{ $item->id }}, `{{ $item->name }}`)"
                             class="px-4 py-2 rounded-full bg-red-500 text-white font-semibold text-sm hover:bg-red-600 hover:shadow-md transition duration-200">
-                        Verwijderen
+                        Delete
                     </button>
                     <a href="{{ route('admins.items.edit', $item->id) }}"
                        class="px-4 py-2 rounded-full bg-gradient-to-r from-[#4ae6d4] to-[#054162] text-white font-semibold text-sm hover:shadow-md transition duration-200">
-                        Bewerken
+                        Edit
                     </a>
                 </td>
             </tr>
@@ -69,14 +69,14 @@
 <script>
     function sendCheck(id, name) {
         Swal.fire({
-            title: "Weet u zeker dat u machine " + name + " wilt verwijderen?",
-            text: "Dit kan niet teruggedraaid worden!",
+            title: "Are you sure you want to delete the item " + name + "?",
+            text: "This action cannot be undone!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Ja, verwijderen!",
-            cancelButtonText: "Annuleren",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
@@ -88,8 +88,8 @@
                     },
                     success: function (data) {
                         Swal.fire({
-                            title: "Verwijderd!",
-                            text: "De machine is verwijderd",
+                            title: "Deleted!",
+                            text: "The item has been deleted.",
                             icon: "success"
                         }).then(() => {
                             location.reload();
@@ -98,7 +98,7 @@
                     error: function (xhr, status, error) {
                         Swal.fire({
                             title: "Error!",
-                            text: "De machine kon niet verwijderd worden",
+                            text: "The item could not be deleted.",
                             icon: "error"
                         });
                     }
@@ -106,5 +106,4 @@
             }
         });
     }
-
 </script>
