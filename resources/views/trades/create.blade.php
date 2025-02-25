@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Breadcrumbs::render('trades.create') }}
+            {{ Breadcrumbs::render('trades.create', $item, $user) }}
         </h2>
     </x-slot>
 
