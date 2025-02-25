@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => ['can:admin'], 'prefix' => 'admin', 'as' => 'admins.'], function () {
         Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
+        Route::get('/items-giver', [\App\Http\Controllers\Admin\ItemController::class, 'indexGiver'])->name('items-giver.index');
+        Route::post('/items-giver', [\App\Http\Controllers\Admin\ItemController::class, 'storeGiver'])->name('items-giver.store');
     });
 });
 

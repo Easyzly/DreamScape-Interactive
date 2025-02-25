@@ -28,6 +28,9 @@
                     <x-nav-link :href="route('admins.users.index')" :active="request()->routeIs('admins.users.*')">
                         {{ __('Gebruikers') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admins.items-giver.index')" :active="request()->routeIs('admins.items-giver.*')">
+                        {{ __('Items Giver') }}
+                    </x-nav-link>
                 </div>
             </div>
 
