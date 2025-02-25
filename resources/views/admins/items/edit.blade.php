@@ -13,6 +13,7 @@
                     @method('PUT')
                     <div class="form-group mb-6">
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                        <input type="text" id="name" name="name" value="{{ $item->name }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-[#faa202] focus:border-[#faa202] p-3" required>
                     </div>
                     <div class="form-group mb-6">
                         <label for="type" class="block text-sm font-medium text-gray-700">Type</label>

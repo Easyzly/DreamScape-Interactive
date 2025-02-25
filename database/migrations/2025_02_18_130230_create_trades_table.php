@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('receiving_user_id');
             $table->unsignedBigInteger('sending_user_id');
-            $table->unsignedBigInteger('receiving_item_id');
-            $table->unsignedBigInteger('sending_item_id');
+            $table->unsignedBigInteger('receiving_item_id')->nullable();
+            $table->unsignedBigInteger('sending_item_id')->nullable();
             $table->foreign('receiving_user_id')->references('id')->on('users');
             $table->foreign('sending_user_id')->references('id')->on('users');
             $table->foreign('receiving_item_id')->references('id')->on('items');
             $table->foreign('sending_item_id')->references('id')->on('items');
-            $table->integer('receiving_quantity');
-            $table->integer('sending_quantity');
+            $table->integer('receiving_quantity')->nullable();
+            $table->integer('sending_quantity')->nullable();
             $table->enum('accepted', ['pending', 'accepted', 'declined'])->default('pending');
             $table->timestamps();
         });

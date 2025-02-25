@@ -28,10 +28,15 @@
                     </div>
                     <ul class="list-disc pl-5">
                         @foreach($item->users as $user)
-                          <li class="text-gray-700 mb-2">
-                              <a href="{{ route('trades.create', ['item' => $item->id, 'user' => $user->id]) }}" class="text-blue-500 hover:underline">
-                                  <strong>{{ $user->name }}</strong> - Quantity: {{ $user->pivot->quantity }}
-                              </a>
+                          <li class="text-gray-700 mb-2 flex items-center gap-1">
+                              <p>
+                                    <strong>{{ $user->name }}</strong> - Quantity: {{ $user->pivot->quantity }}
+                              </p>
+                              @if($user->id != auth()->id())
+                                  <a href="{{ route('trades.create', ['item' => $item->id, 'user' => $user->id]) }}" class="text-blue-500 hover:underline">
+                                      Trade
+                                  </a>
+                              @endif
                           </li>
                         @endforeach
                     </ul>

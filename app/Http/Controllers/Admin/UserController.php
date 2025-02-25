@@ -60,7 +60,7 @@ class UserController extends Controller
             'role_id' => 'required',
         ]);
 
-        if (User::where('email', $request->email)->exists()) {
+        if (User::where('email', $request->email)->exists() and $user->email != $request->email) {
             return redirect()->back()->with('error', 'Email already exists');
         }
 
