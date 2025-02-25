@@ -23,14 +23,14 @@ class RolesPermissionSeeder extends Seeder
         }
 
         $roles = [
-            'Gebruiker',
-            'Beheerder'
+            'Player',
+            'Administrator'
         ];
 
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
 
-            if ($role === 'Beheerder') {
+            if ($role === 'Administrator') {
                 $role = Role::findByName($role);
                 $role->givePermissionTo($permissions);
             }

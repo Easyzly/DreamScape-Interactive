@@ -57,7 +57,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::created(function ($user) {
-            $user->assignRole('Gebruiker');
+            $user->assignRole('Player');
         });
     }
 }

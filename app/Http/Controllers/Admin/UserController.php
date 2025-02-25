@@ -30,6 +30,10 @@ class UserController extends Controller
             'role_id' => 'required',
         ]);
 
+        if (User::where('email', $request->email)->exists()) {
+            return redirect()->back()->with('error', 'Email already exists');
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -39,7 +43,7 @@ class UserController extends Controller
         $role = Role::findById($request->role_id);
         $user->syncRoles($role);
 
-        return redirect()->route('admins.users.index')->with('success', 'Gebruiker aangemaakt');
+        return redirect()->route('admins.users.index')->with('success', 'User created');
     }
 
     public function edit(User $user)
@@ -64,14 +68,14 @@ class UserController extends Controller
         $role = Role::findById($request->role_id);
         $user->syncRoles($role);
 
-        return redirect()->route('admins.users.index')->with('success', 'Gebruiker aangepast');
+        return redirect()->route('admins.users.index')->with('success', 'User updated');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
 
-        return redirect()->route('admins.users.index')->with('success', 'Gebruiker verwijderd');
+        return redirect()->route('admins.users.index')->with('success', 'User deleted');
     }
 
     public function show(User $user)

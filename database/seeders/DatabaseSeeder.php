@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
         ]);
-        $admin->assignRole('Beheerder');
+        $admin->syncRoles('Administrator');
 
         $randomItems = Item::inRandomOrder()->limit(10)->get();
         $randomItems->each(function ($item) use ($admin) {
