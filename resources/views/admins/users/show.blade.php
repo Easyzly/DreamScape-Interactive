@@ -43,48 +43,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include the SweetAlert2 script -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function sendCheck(id, name) {
-            Swal.fire({
-                title: "Weet u zeker dat u de gebruiker " + name + " wilt verwijderen?",
-                text: "Dit kan niet teruggedraaid worden!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ja, verwijderen!",
-                cancelButtonText: "Annuleren",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('admins.users.destroy', '') }}/" + id,
-                        data: {
-                            _method: 'DELETE',
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function (data) {
-                            Swal.fire({
-                                title: "Verwijderd!",
-                                text: "Gebruiker is verwijderd",
-                                icon: "success"
-                            }).then(() => {
-                                location.reload();
-                            });
-                        },
-                        error: function (xhr, status, error) {
-                            Swal.fire({
-                                title: "Error!",
-                                text: "Gebruiker kon niet verwijderd worden",
-                                icon: "error"
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    </script>
 </x-app-layout>

@@ -37,14 +37,6 @@
                 </form>
 
                 <div class="flex items-center justify-between mt-4">
-                    @if($user->id != auth()->id())
-                        <!-- Delete Button with SweetAlert -->
-                        <button type="button"
-                                onclick="sendCheck({{ $user->id }}, '{{ $user->name }}')"
-                                class="px-4 py-2 text-white font-semibold rounded-full bg-red-500 hover:bg-red-600 hover:shadow-md transition duration-200">
-                            Verwijderen
-                        </button>
-                    @endif
                     @if($user->id == auth()->id())
                         <div></div>
                     @endif
@@ -61,52 +53,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include SweetAlert2 script -->
-
 </x-app-layout>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>
-    function sendCheck(id, name) {
-        Swal.fire({
-            title: "Weet u zeker dat u de gebruiker " + name + " wilt verwijderen?",
-            text: "Dit kan niet teruggedraaid worden!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ja, verwijderen!",
-            cancelButtonText: "Annuleren",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Send AJAX request to delete the user
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('admins.users.destroy', '') }}/" + id, // Correctly insert the user ID
-                    data: {
-                        _method: 'DELETE',
-                        _token: "{{ csrf_token() }}" // Send CSRF token for validation
-                    },
-                    success: function (data) {
-                        Swal.fire({
-                            title: "Verwijderd!",
-                            text: "Gebruiker is verwijderd",
-                            icon: "success"
-                        }).then(() => {
-                            location.href = "{{ route('admins.users.index') }}"; // Redirect to users index after deletion
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Gebruiker kon niet verwijderd worden",
-                            icon: "error"
-                        });
-                    }
-                });
-            }
-        });
-    }
-</script>
