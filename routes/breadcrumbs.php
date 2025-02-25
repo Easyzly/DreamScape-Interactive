@@ -73,6 +73,27 @@ Breadcrumbs::for('admins.users.edit', function (BreadcrumbTrail $trail, $user) {
     $trail->push('Edit User', route('admins.users.edit', $user));
 });
 
+// Admin Items
+Breadcrumbs::for('admins.items.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Admin Items', route('admins.items.index'));
+});
+
+Breadcrumbs::for('admins.items.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admins.items.index');
+    $trail->push('Create Item', route('admins.items.create'));
+});
+
+Breadcrumbs::for('admins.items.show', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admins.items.index');
+    $trail->push($item->name, route('admins.items.show', $item));
+});
+
+Breadcrumbs::for('admins.items.edit', function (BreadcrumbTrail $trail, $item) {
+    $trail->parent('admins.items.index');
+    $trail->push('Edit Item', route('admins.items.edit', $item));
+});
+
 // Admin Items Giver
 Breadcrumbs::for('admins.items-giver.index', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
