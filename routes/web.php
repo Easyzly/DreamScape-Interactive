@@ -34,8 +34,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/items/{item}', [\App\Http\Controllers\User\ItemController::class, 'destroy'])->name('items.destroy');
     });
 
-    Route::group(['middleware' => ['can:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-        //Admin routes (moeten nog toegevoegd worden)
+    Route::group(['middleware' => ['can:admin'], 'prefix' => 'admin', 'as' => 'admins.'], function () {
+        Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
+        Route::get('/items-giver', [\App\Http\Controllers\Admin\ItemController::class, 'indexGiver'])->name('items-giver.index');
+        Route::post('/items-giver', [\App\Http\Controllers\Admin\ItemController::class, 'storeGiver'])->name('items-giver.store');
     });
 });
 
