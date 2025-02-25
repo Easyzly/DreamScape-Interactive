@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemsSeeder::class);
 
         $admin = User::factory()->create([
-            'name' => 'Jamie vg',
-            'email' => 'jamievangulik2006@gmail.com',
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
         ]);
         $admin->assignRole('Beheerder');
 
@@ -29,7 +29,10 @@ class DatabaseSeeder extends Seeder
             $admin->items()->attach($item, ['quantity' => rand(1, 5)]);
         });
 
-        $randomUser = User::factory()->create();
+        $randomUser = User::factory()->create([
+            'name' => 'TestGebruiker',
+            'email' => 'tester@gmail.com',
+        ]);
         $randomItems = Item::inRandomOrder()->limit(10)->get();
         $randomItems->each(function ($item) use ($randomUser) {
             $randomUser->items()->attach($item, ['quantity' => rand(1, 5)]);
