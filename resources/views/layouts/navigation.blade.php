@@ -24,6 +24,10 @@
                     <x-nav-link :href="route('trades.index')" :active="request()->routeIs('trades.*')">
                         {{ __('Trades') }}
                     </x-nav-link>
+                    <span class="w-1 h-10 rounded-full my-auto bg-gray-400/40"></span>
+                    <x-nav-link :href="route('admins.users.index')" :active="request()->routeIs('admins.users.*')">
+                        {{ __('Gebruikers') }}
+                    </x-nav-link>
                 </div>
             </div>
 

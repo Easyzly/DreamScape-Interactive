@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/items/{item}', [\App\Http\Controllers\User\ItemController::class, 'destroy'])->name('items.destroy');
     });
 
-    Route::group(['middleware' => ['can:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-        //Admin routes (moeten nog toegevoegd worden)
+    Route::group(['middleware' => ['can:admin'], 'prefix' => 'admin', 'as' => 'admins.'], function () {
+        Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
     });
 });
 
