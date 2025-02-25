@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Create Trade Request
+            {{ Breadcrumbs::render('trades.create') }}
         </h2>
     </x-slot>
 
